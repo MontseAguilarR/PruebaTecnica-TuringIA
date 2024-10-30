@@ -22,7 +22,7 @@ export default function Login({ status, canResetPassword }) {
             },
             onSuccess: () => {
                 // Redirigir a la vista LandingPageUser
-                window.location.href = '/landing-page-user'; // Cambia esto por la ruta que corresponde a LandingPageUser
+                window.location.href = '/dashboard'; 
             },
         });
     };

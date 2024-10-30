@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -14,13 +16,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/landing-page-user', function () {
-    return Inertia::render('LandingPageUser');
-})->middleware('auth');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+        Route::get('/my-reviews', [UserController::class, 'myReviews'])->name('myReviews');
+        Route::get('/my-playlists', [UserController::class, 'myPlaylists'])->name('myPlaylists');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

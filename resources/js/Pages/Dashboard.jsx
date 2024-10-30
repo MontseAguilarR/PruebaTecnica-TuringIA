@@ -1,26 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { InfoSection } from './components/InfoSection';
+import { EventsSection } from './components/EventsSection';
+import { SongsSection } from './components/SongsSection';
+import { ReviewSection } from './components/ReviewSection';
 
-export default function Dashboard() {
+export default function Dashboard({ user }) {
     return (
         <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title="Dashboard" />
+            user={user}>
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            You're logged in!
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <InfoSection></InfoSection>
+            <EventsSection></EventsSection>
+            <SongsSection></SongsSection>
+            <ReviewSection></ReviewSection>
         </AuthenticatedLayout>
+
+        
     );
 }
