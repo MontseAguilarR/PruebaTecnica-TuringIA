@@ -48,12 +48,6 @@ export default function AuthenticatedLayout({ header, children, user }) {
                                             Inicio
                                         </NavLink>
                                         <NavLink
-                                            href={route('myReviews')}
-                                            active={route().current('myReviews')}
-                                        >
-                                            Mis reseñas
-                                        </NavLink>
-                                        <NavLink
                                             href={route('myPlaylists')}
                                             active={route().current('myPlaylists')}
                                         >
@@ -69,8 +63,6 @@ export default function AuthenticatedLayout({ header, children, user }) {
                                         >
                                             Panel de Admin
                                         </NavLink>
-                                        <NavLink >Gestionar usuarios</NavLink>
-                                        <NavLink >Gestionar contenido</NavLink>
                                     </>
                                 )}
                             </div>

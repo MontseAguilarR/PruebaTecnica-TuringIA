@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('artist');
-            $table->string('gender');
-            $table->string('image');
-            $table->string('path');
-            $table->string('album')->nullable();
-            $table->integer('year')->nullable();
-            $table->unsignedInteger('likes')->default(0);
+            $table->string('description');
+            $table->string('image')->nullable()->change();
+            $table->string('path')->nullable()->change();
+            $table->string('date');
             $table->timestamps();
         });
         
@@ -31,39 +29,46 @@ return new class extends Migration
             $table->string('title');
             $table->string('date');
             $table->text('content');
-            $table->integer('rating'); // Calificación de la reseña (por ejemplo, del 1 al 5)
-            $table->string('image');
-            $table->string('path');
+            $table->integer('rating');
+            $table->string('image')->nullable()->change();
+            $table->string('path')->nullable()->change();
             $table->timestamps();
         });
 
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->date('date'); // Fecha del evento
-            $table->string('location'); // Ubicación del evento
+            $table->date('date'); 
+            $table->string('location'); 
+            $table->string('image')->nullable()->change();
+            $table->string('path')->nullable()->change();
             $table->timestamps();
         });
 
-        Schema::create('playlists', function (Blueprint $table) {
+        Schema::create('lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relación con users
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
         
-        Schema::create('playlist_song', function (Blueprint $table) {
+        Schema::create('list_song', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('playlist_id')->constrained()->onDelete('cascade'); // Relación con playlists
-            $table->foreignId('song_id')->constrained()->onDelete('cascade'); // Relación con songs
+            $table->foreignId('list_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('song_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
 
-        Schema::create('song_comments', function (Blueprint $table) {
+        Schema::create('Colaborations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('song_id')->constrained()->onDelete('cascade'); // Relación con songs
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relación con users
-            $table->text('content'); // Contenido del comentario
+            $table->string('title');
+            $table->string('artistA');
+            $table->string('artistB');
+            $table->string('image')->nullable()->change();
+            $table->string('path')->nullable()->change();
+            $table->string('date');
+            $table->integer('rating');
+            $table->integer('stars');
             $table->timestamps();
         });
 

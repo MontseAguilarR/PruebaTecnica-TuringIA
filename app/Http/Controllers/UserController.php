@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Songs;
+use App\Models\Events;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
         
-    $user = Auth::user(); // Obtener el usuario autenticado
+    $user = Auth::user(); 
 
-    // Verificar si el usuario tiene un rol específico
-    $hasUserRole = $user->hasRole('user'); // Esto debería ser false para el Admin
-    $hasAdminRole = $user->hasRole('admin'); // Esto debería ser true para el Admin
+    
+    $hasUserRole = $user->hasRole('user');
+    $hasAdminRole = $user->hasRole('admin');
 
-    // Para depuración
-    // dd($user, $hasUserRole, $hasAdminRole); // Muestra los valores en pantalla
 
     return Inertia::render('Dashboard', [
         'user' => [
@@ -30,16 +30,32 @@ class UserController extends Controller
     
     }
 
-    public function myReviews()
-    {
-        // Lógica para mostrar las reseñas del usuario
-        return Inertia::render('user.reviews'); // Asegúrate de que la vista exista
-    }
+    public function getSongs()
+   {
+    $songs = Songs::all();
+
+    return response()->json($songs);
+   }
+
+    public function getEvents()
+   {
+    $events = Events::all();
+
+    return response()->json($events);
+   }
+
+    // public function myReviews()
+    // {
+    //     
+    //     return Inertia::render('user.reviews'); // Asegúrate de que la vista exista
+    // }
 
     public function myPlaylists()
     {
-        // Lógica para mostrar las playlists del usuario
+        
         return Inertia::render('user.playlists'); // Asegúrate de que la vista exista
     }
+
+
 }
 
